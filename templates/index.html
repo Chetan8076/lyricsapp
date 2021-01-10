@@ -1,0 +1,137 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'text.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'text.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <title>Lyrics</title>
+  </head>
+  <body style="background: #212121;">
+    <!-- <h1>Search lyrics for Songs below!</h1> -->
+   <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+  <label class="btn btn-outline-secondary active">
+    <input type="radio" name="options" onclick="dark()" id="option1" autocomplete="off" checked> Dark
+  </label>
+  <label class="btn btn-outline-light">
+    <input type="radio" name="options" id="option2" onclick="light()" autocomplete="off"> light
+  </label>
+  
+</div>
+    <div class="container mx-auto p-5 my-5" style="max-width: 500px;">
+          <input id="track" class="form-control " type="search" placeholder="Song" aria-label="Search" style="width:250px">
+      <input id="Artist" class="form-control " type="search" placeholder="Artist" aria-label="Search" style="width:250px">
+      <button id="submit" onclick="lyrics(this)" class="btn btn-outline-success my-2 my-sm-0 mx-auto" type="submit">Search</button>
+  </div>
+
+
+  <div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div  class="container" style="max-width: 600px" >
+        <p class="font-italic text-success heading" id =  "lyrics" ></p>
+
+      	
+      </div>
+   
+
+<!-- <script src="{% static 'ajax.js' %}"></script> -->
+
+
+
+<script type="text/javascript">
+  
+$(document).ready(function() {
+
+  $.ajax({
+
+    type:"GET",
+    url:"https://api.musixmatch.com/ws/1.1/chart.tracks.get?format=jsonp&callback=callback&country=us&apikey=de0ab021a7b786fccbd92f1f7a5235d0",
+    success:function (response) {
+      
+      
+
+    }
+
+
+
+  })
+})
+
+</script>
+<script type="text/javascript">
+  
+
+function lyrics(argument) {
+  var artist = document.getElementById('Artist').value;
+  var track = document.getElementById('track').value;
+  // body...
+  $.ajax({
+
+    type:"GET",
+    url:"https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track="+track+"&q_artist="+artist+"&apikey=de0ab021a7b786fccbd92f1f7a5235d0",
+    success:function (response) {
+      // body...
+      $("#lyrics").html(JSON.parse(response.slice(9,response.length-2))["message"]["body"]["lyrics"]["lyrics_body"]);
+      textAnimation();
+      // console.log(response.length);
+      // console.log(JSON.parse(response.slice(9,response.length-2))["message"]["body"]["lyrics"]["lyrics_body"]);
+      // console.log(response);
+    }
+
+  });
+}
+
+
+
+</script>
+
+<script type="text/javascript">
+  function dark() {
+    // body...
+    console.log("hello dark");
+    document.body.style.background = "#212121";
+
+  }
+  function light() {
+    // body...
+    console.log("hello light");
+    document.body.style.background = "white";
+    
+  }
+</script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
