@@ -72,7 +72,7 @@ $(document).ready(function() {
   $.ajax({
 
     type:"GET",
-    url:"https://api.musixmatch.com/ws/1.1/chart.tracks.get?format=jsonp&callback=callback&country=us&apikey=de0ab021a7b786fccbd92f1f7a5235d0",
+    url:"",
     success:function (response) {
       
       
@@ -95,7 +95,7 @@ function lyrics(argument) {
   $.ajax({
 
     type:"GET",
-    url:"https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track="+track+"&q_artist="+artist+"&apikey=de0ab021a7b786fccbd92f1f7a5235d0",
+    url:"",
     success:function (response) {
       // body...
       $("#lyrics").html(JSON.parse(response.slice(9,response.length-2))["message"]["body"]["lyrics"]["lyrics_body"]);
