@@ -36,7 +36,7 @@ submitButton.addEventListener('click',searchLyrics);
 function searchLyrics(){
 	var song= document.getElementById("search").value;
 var Artist = document.getElementById("Artist").value;
-trackSearchUrl="https://musixmatchcom-musixmatch.p.rapidapi.com/wsr/1.1/track.search?f_has_lyrics=1&q_track="+song+"&q_artist="+Artist+"&page_size=5&page=1";
+
 
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = false;
@@ -46,14 +46,14 @@ xhr.addEventListener("readystatechange", function () {
 
 		console.log(JSON.parse(this.responseText));
 		let trackId=JSON.parse(this.responseText)[0].track_id;
-		lyricsSearch(trackId);
+		lyricsSearch(trackId)
 		console.clear();
 	}
 });
 
 xhr.open("GET", trackSearchUrl);
-xhr.setRequestHeader("x-rapidapi-host", "musixmatchcom-musixmatch.p.rapidapi.com");
-xhr.setRequestHeader("x-rapidapi-key", "a37926ae0fmsh0c55542639256ffp163e09jsn2afcd5a2aa3a");
+;
+
 
 xhr.send(data);
 
@@ -61,7 +61,7 @@ xhr.send(data);
 }
 
 function lyricsSearch(trackId){
-url ="https://musixmatchcom-musixmatch.p.rapidapi.com/wsr/1.1/track.lyrics.get?track_id="+trackId;
+_id="+trackId;
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = false;
 
@@ -79,10 +79,8 @@ xhr.addEventListener("readystatechange", function () {
 
 
 xhr.open("GET", url);
-xhr.setRequestHeader("x-rapidapi-host", "musixmatchcom-musixmatch.p.rapidapi.com");
-xhr.setRequestHeader("x-rapidapi-key", "a37926ae0fmsh0c55542639256ffp163e09jsn2afcd5a2aa3a");
+;
 
-xhr.send(data);
-}
+
 
 
