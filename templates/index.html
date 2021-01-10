@@ -72,8 +72,26 @@ $(document).ready(function() {
   $.ajax({
 
     type:"GET",
-    url:"",
     success:function (response) {
+      var data = JSON.parse(response.slice(9,response.length-2));
+              console.log(data);
+
+      var trending = data["message"]["message"]["body"]["track_list"]
+      console.log(trending);
+      for(i in trending ){
+        $(".cardarea").append(`<div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">`+i["track"]["album_name"] +
+                          `p class="card-text">`+i["track"]["artist_name"] +`</p>
+                          <a href="#" class="btn btn-primary">Go to lyrics</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`);
+
+
+      };
       
       
 
@@ -81,7 +99,7 @@ $(document).ready(function() {
 
 
 
-  })
+  });
 })
 
 </script>
